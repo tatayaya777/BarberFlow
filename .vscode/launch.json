@@ -1,0 +1,97 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "NotificacionServiceApplication",
+            "request": "launch",
+            "mainClass": "com.barberflow.notificacion_service.NotificacionServiceApplication",
+            "projectName": "notificacion-service",
+            "vmArgs": " -Dcom.sun.management.jmxremote"
+        },
+        {
+            "type": "java",
+            "name": "SucursalServiceApplication",
+            "request": "launch",
+            "mainClass": "com.barberflow.sucursal_service.SucursalServiceApplication",
+            "projectName": "sucursal-service"
+        },
+        {
+            "type": "java",
+            "name": "ServicioServiceApplication",
+            "request": "launch",
+            "mainClass": "com.barberflow.servicio_service.ServicioServiceApplication",
+            "projectName": "servicio-service"
+        },
+        {
+            "type": "java",
+            "name": "ReservaServiceApplication",
+            "request": "launch",
+            "mainClass": "com.barberflow.reserva_service.ReservaServiceApplication",
+            "projectName": "reserva-service"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-BarberoServiceApplication<barbero-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.barberflow.barbero_service.BarberoServiceApplication",
+            "projectName": "barbero-service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ClienteServiceApplication<cliente-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.barberflow.cliente_service.ClienteServiceApplication",
+            "projectName": "cliente-service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-HorarioServiceApplication<horario-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.barberflow.horario_service.HorarioServiceApplication",
+            "projectName": "horario-service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ReporteServiceApplication<reporte-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.barberflow.reporte_service.ReporteServiceApplication",
+            "projectName": "reporte-service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-AuthServiceApplication<auth-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.barberflow.auth_service.AuthServiceApplication",
+            "projectName": "auth-service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=57107 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=auth-service"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-PagoServiceApplication<pago-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.barberflow.pago_service.PagoServiceApplication",
+            "projectName": "pago-service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
