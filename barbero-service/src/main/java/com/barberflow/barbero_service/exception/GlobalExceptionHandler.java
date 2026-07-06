@@ -1,26 +1,41 @@
 package com.barberflow.barbero_service.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Map<String,Object>> recursoNoEncontrado(
+            ResourceNotFoundException ex){
 
-    public Map<String, String> manejarValidaciones(MethodArgumentNotValidException ex) {
+        Map<String,Object> error = new HashMap<>();
 
-        Map<String, String> errores = new HashMap<>();
+        error.put("fecha", LocalDateTime.now());
+        error.put("estado",404);
+        error.put("mensaje",ex.getMessage());
 
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-                errores.put(error.getField(), error.getDefaultMessage())
-        );
-
-        return errores;
+        return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String,Object>> errorGeneral(
+            Exception ex){
+
+        Map<String,Object> error = new HashMap<>();
+
+        error.put("fecha", LocalDateTime.now());
+        error.put("estado",500);
+        error.put("mensaje",ex.getMessage());
+
+        return new ResponseEntity<>(error,HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

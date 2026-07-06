@@ -4,12 +4,17 @@ import com.barberflow.notificacion_service.model.Notificacion;
 import com.barberflow.notificacion_service.repository.NotificacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class NotificacionService {
+
+    private static final Logger logger =
+        LoggerFactory.getLogger(NotificacionService.class);
 
     @Autowired
     private NotificacionRepository notificacionRepository;

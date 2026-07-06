@@ -2,7 +2,12 @@ package com.barberflow.auth_service.controller;
 
 import com.barberflow.auth_service.model.Auth;
 import com.barberflow.auth_service.service.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,41 +15,56 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Auth", description = "Gestión de usuarios y autenticación")
 public class AuthController {
 
     @Autowired
     private AuthService authService;
 
+    @Operation(summary = "Obtener todos los usuarios")
     @GetMapping
-    public List<Auth> listarUsuarios() {
-        return authService.obtenerUsuarios();
+    public ResponseEntity<List<Auth>> listarUsuarios() {
+        return ResponseEntity.ok(authService.obtenerUsuarios());
     }
 
+    @Operation(summary = "Buscar un usuario por ID")
     @GetMapping("/{id}")
-    public ResponseEntity<Auth> obtenerUsuario(@PathVariable Long id) {
+    public ResponseEntity<Auth> obtenerUsuario(
+            @Parameter(description = "ID del usuario")
+            @PathVariable Long id) {
+
         return authService.obtenerUsuarioPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @Operation(summary = "Registrar un nuevo usuario")
     @PostMapping
-    public Auth crearUsuario(@RequestBody Auth auth) {
-        return authService.guardarUsuario(auth);
+    public ResponseEntity<Auth> crearUsuario(@Valid @RequestBody Auth auth) {
+
+        Auth nuevoUsuario = authService.guardarUsuario(auth);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuario);
     }
 
+    @Operation(summary = "Actualizar un usuario")
     @PutMapping("/{id}")
     public ResponseEntity<Auth> actualizarUsuario(
+            @Parameter(description = "ID del usuario")
             @PathVariable Long id,
-            @RequestBody Auth auth) {
+            @Valid @RequestBody Auth auth) {
 
-        return ResponseEntity.ok(
-                authService.actualizarUsuario(id, auth)
-        );
+        return ResponseEntity.ok(authService.actualizarUsuario(id, auth));
     }
 
+    @Operation(summary = "Eliminar un usuario")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarUsuario(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminarUsuario(
+            @Parameter(description = "ID del usuario")
+            @PathVariable Long id) {
+
         authService.eliminarUsuario(id);
+
         return ResponseEntity.noContent().build();
     }
 }

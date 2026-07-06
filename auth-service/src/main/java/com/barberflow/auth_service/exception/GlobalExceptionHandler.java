@@ -2,16 +2,57 @@ package com.barberflow.auth_service.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, Object>> manejarValidaciones(MethodArgumentNotValidException ex) {
+
+        Map<String, Object> respuesta = new HashMap<>();
+        Map<String, String> errores = new HashMap<>();
+
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+                errores.put(error.getField(), error.getDefaultMessage())
+        );
+
+        respuesta.put("timestamp", LocalDateTime.now());
+        respuesta.put("status", HttpStatus.BAD_REQUEST.value());
+        respuesta.put("error", "Solicitud inválida");
+        respuesta.put("mensajes", errores);
+
+        return ResponseEntity.badRequest().body(respuesta);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> manejarNoEncontrado(ResourceNotFoundException ex) {
+
+        Map<String, Object> respuesta = new HashMap<>();
+
+        respuesta.put("timestamp", LocalDateTime.now());
+        respuesta.put("status", HttpStatus.NOT_FOUND.value());
+        respuesta.put("error", ex.getMessage());
+
+        return new ResponseEntity<>(respuesta, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> manejarError(Exception e) {
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Error: " + e.getMessage());
+    public ResponseEntity<Map<String, Object>> manejarGeneral(Exception ex) {
+
+        Map<String, Object> respuesta = new HashMap<>();
+
+        respuesta.put("timestamp", LocalDateTime.now());
+        respuesta.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        respuesta.put("error", "Ha ocurrido un error interno.");
+        respuesta.put("detalle", ex.getMessage());
+
+        return new ResponseEntity<>(respuesta, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

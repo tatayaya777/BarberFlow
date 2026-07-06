@@ -4,13 +4,15 @@ import com.barberflow.sucursal_service.model.Sucursal;
 import com.barberflow.sucursal_service.repository.SucursalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class SucursalService {
-
+    private static final Logger logger =
+        LoggerFactory.getLogger(SucursalService.class);
     @Autowired
     private SucursalRepository sucursalRepository;
 

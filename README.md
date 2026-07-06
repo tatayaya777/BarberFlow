@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # BarberFlow
 
 # Integrantes
@@ -60,3 +61,6 @@ DELETE /clientes/{id}
 # Testing
 
 Se implementaron pruebas unitarias utilizando JUnit 5 y Mockito para validar la lógica de negocio de los microservicios.
+=======
+# BarberFlow
+>>>>>>> 882b98d0624dc45ba62dce70b497ecbc81104eb1

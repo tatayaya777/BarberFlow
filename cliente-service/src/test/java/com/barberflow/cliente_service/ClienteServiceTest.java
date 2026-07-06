@@ -1,5 +1,6 @@
 package com.barberflow.cliente_service;
 
+import com.barberflow.cliente_service.exception.ResourceNotFoundException;
 import com.barberflow.cliente_service.model.Cliente;
 import com.barberflow.cliente_service.repository.ClienteRepository;
 import com.barberflow.cliente_service.service.ClienteService;
@@ -32,57 +33,53 @@ class ClienteServiceTest {
 
     @BeforeEach
     void setUp() {
+
         cliente = new Cliente();
+
         cliente.setId(1L);
         cliente.setNombre("Juan Perez");
         cliente.setTelefono("987654321");
         cliente.setEmail("juan@test.com");
+
     }
 
     @Test
     void debeObtenerTodosLosClientes() {
 
-        // Given
         when(clienteRepository.findAll())
                 .thenReturn(Arrays.asList(cliente));
 
-        // When
         List<Cliente> resultado = clienteService.obtenerClientes();
 
-        // Then
         assertEquals(1, resultado.size());
         assertEquals("Juan Perez", resultado.get(0).getNombre());
+
         verify(clienteRepository, times(1)).findAll();
     }
 
     @Test
     void debeGuardarCliente() {
 
-        // Given
         when(clienteRepository.save(cliente))
                 .thenReturn(cliente);
 
-        // When
         Cliente resultado = clienteService.guardarCliente(cliente);
 
-        // Then
         assertNotNull(resultado);
         assertEquals("Juan Perez", resultado.getNombre());
+
         verify(clienteRepository, times(1)).save(cliente);
     }
 
     @Test
     void debeBuscarClientePorId() {
 
-        // Given
         when(clienteRepository.findById(1L))
                 .thenReturn(Optional.of(cliente));
 
-        // When
         Optional<Cliente> resultado =
                 clienteService.obtenerClientePorId(1L);
 
-        // Then
         assertTrue(resultado.isPresent());
         assertEquals("Juan Perez",
                 resultado.get().getNombre());
@@ -90,14 +87,56 @@ class ClienteServiceTest {
         verify(clienteRepository, times(1))
                 .findById(1L);
     }
+
     @Test
-void debeEliminarCliente() {
+    void debeActualizarCliente() {
 
-    // When
-    clienteService.eliminarCliente(1L);
+        Cliente actualizado = new Cliente();
 
-    // Then
-    verify(clienteRepository, times(1))
-            .deleteById(1L);
-}
+        actualizado.setNombre("Pedro");
+        actualizado.setTelefono("999999999");
+        actualizado.setEmail("pedro@test.com");
+
+        when(clienteRepository.findById(1L))
+                .thenReturn(Optional.of(cliente));
+
+        when(clienteRepository.save(any(Cliente.class)))
+                .thenReturn(cliente);
+
+        Cliente resultado =
+                clienteService.actualizarCliente(1L, actualizado);
+
+        assertNotNull(resultado);
+
+        verify(clienteRepository).findById(1L);
+        verify(clienteRepository).save(any(Cliente.class));
+
+    }
+
+    @Test
+    void debeEliminarCliente() {
+
+        when(clienteRepository.findById(1L))
+                .thenReturn(Optional.of(cliente));
+
+        clienteService.eliminarCliente(1L);
+
+        verify(clienteRepository).delete(cliente);
+
+    }
+
+    @Test
+    void debeLanzarExcepcionCuandoClienteNoExiste() {
+
+        when(clienteRepository.findById(1L))
+                .thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> {
+
+            clienteService.eliminarCliente(1L);
+
+        });
+
+    }
+
 }
