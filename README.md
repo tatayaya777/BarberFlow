@@ -1,264 +1,37 @@
 # BarberFlow
 
-> Sistema de gestión para barberías desarrollado con arquitectura de **Microservicios**, utilizando **Spring Boot**, **React**, **MySQL** y **API Gateway**.
+## Descripción
 
-Proyecto desarrollado para **Fullstack I** Hecho por Mackener Castro.
+BarberFlow es una aplicación web desarrollada bajo una arquitectura de microservicios para la gestión de barberías. El sistema permite administrar clientes, barberos, reservas, servicios, pagos, sucursales y demás procesos involucrados en el funcionamiento de una barbería moderna.
 
----
-
-# Descripción
-
-BarberFlow es una aplicación web que permite administrar una barbería de forma sencilla y organizada mediante una arquitectura basada en microservicios.
-
-El sistema fue diseñado para separar cada módulo en un servicio independiente, permitiendo una mejor escalabilidad, mantenimiento y organización del código.
-
-Entre sus funcionalidades principales se encuentran:
-
-- Administración de clientes
-- Administración de barberos
-- Gestión de reservas
-- Administración de servicios
-- Registro de pagos
-- Generación de reportes
-- Panel principal con estadísticas generales
+El proyecto fue desarrollado utilizando Spring Boot para el backend, React para el frontend y MySQL como base de datos principal.
 
 ---
 
-# Tecnologías utilizadas
+# Integrantes
 
-## Backend
-
-- Java 17
-- Spring Boot 3
-- Spring Data JPA
-- Spring Validation
-- Spring Boot Actuator
-- SpringDoc OpenAPI (Swagger)
-- Maven
-
-## Frontend
-
-- React
-- Vite
-- Axios
-- React Router DOM
-- Bootstrap 5
-
-## Base de Datos
-
-- MySQL
-- XAMPP
-
-## Herramientas de desarrollo
-
-- Visual Studio Code
-- IntelliJ IDEA
-- Git
-- GitHub
-- Postman
+- Mackener Castro
+Asignatura: Desarrollo FullStack I
+Institución: Duoc UC
 
 ---
 
-# 🏗 Arquitectura
+# Arquitectura
 
-El proyecto fue desarrollado utilizando una arquitectura basada en microservicios.
+La solución fue desarrollada utilizando una arquitectura basada en microservicios.
 
+Cada microservicio posee su propia responsabilidad y mantiene una separación clara entre las capas:
 
-Clientes
-Barberos
-Reservas
-Servicios
-Pagos
-Reportes
-```
+- Controller
+- Service
+- Repository
+- Model
 
-Cada microservicio posee su propia lógica de negocio, controladores, servicios, repositorios y acceso independiente a la base de datos.
+El acceso a todos los servicios se realiza mediante un API Gateway.
 
 ---
 
-# Estructura del proyecto
-
-```text
-BARBERFLOW
-│
-├── api-gateway
-├── auth-service
-├── cliente-service
-├── barbero-service
-├── reserva-service
-├── servicio-service
-├── pago-service
-├── reporte-service
-├── horario-service
-├── notificacion-service
-├── sucursal-service
-│
-└── barberflow-frontend
-```
-
----
-
-# ⚙ Funcionalidades
-
-## Clientes
-
-- Registrar clientes
-- Editar información
-- Buscar clientes
-- Eliminar clientes
-
----
-
-## Barberos
-
-- Registrar barberos
-- Editar información
-- Buscar barberos
-- Eliminar barberos
-
----
-
-## Reservas
-
-- Crear reservas
-- Modificar reservas
-- Buscar reservas
-- Eliminar reservas
-
----
-
-## Servicios
-
-- Registrar servicios
-- Editar servicios
-- Buscar servicios
-- Eliminar servicios
-
----
-
-## Pagos
-
-- Registrar pagos
-- Editar pagos
-- Consultar pagos
-- Eliminar pagos
-
----
-
-## Reportes
-
-- Registrar reportes
-- Consultar reportes
-- Editar reportes
-- Eliminar reportes
-
----
-
-# Dashboard
-
-El Dashboard principal permite visualizar información resumida del sistema, mostrando:
-
-- Total de clientes registrados
-- Total de barberos registrados
-- Total de reservas realizadas
-- Total de ingresos registrados
-
-Toda la información es obtenida dinámicamente desde los microservicios mediante el API Gateway.
-
----
-
-# Validaciones
-
-El proyecto utiliza **Bean Validation** para validar la información antes de ser almacenada.
-
-Entre las validaciones implementadas se encuentran:
-
-- `@NotBlank`
-- `@Email`
-- `@NotNull`
-- `@Positive`
-- `@PositiveOrZero`
-
----
-
-# Documentación de la API
-
-Cada microservicio dispone de documentación automática mediante Swagger.
-
-Ejemplo:
-
-```text
-http://localhost:8081/swagger-ui/index.html
-```
-
----
-
-# Pruebas Unitarias
-
-Se implementaron pruebas unitarias utilizando:
-
-- JUnit 5
-- Mockito
-
-Servicios con pruebas implementadas:
-
-- ClienteService
-- PagoService
-- ReservaService
-
----
-
-# Registro de eventos
-
-Se implementó el uso de **SLF4J** para registrar eventos importantes del sistema, tales como:
-
-- Creación de registros
-- Actualización de información
-- Eliminación de datos
-- Consultas realizadas
-- Advertencias y errores
-
----
-
-# Manejo de excepciones
-
-El sistema incorpora un **Global Exception Handler**, encargado de centralizar el manejo de errores y devolver respuestas consistentes para la API.
-
-También se implementó la excepción personalizada:
-
-- ResourceNotFoundException
-
----
-
-# Ejecución del proyecto
-
-## 1. Clonar el repositorio
-
-```bash
-git clone https://github.com/TU-USUARIO/BarberFlow.git
-```
-
----
-
-## 2. Crear la base de datos
-
-Crear una base de datos llamada:
-
-```text
-barberflow
-```
-
----
-
-## 3. Iniciar MySQL
-
-Levantar el servicio desde XAMPP.
-
----
-
-## 4. Ejecutar los microservicios
-
-Levantar los siguientes proyectos Spring Boot:
+# Microservicios implementados
 
 - API Gateway
 - Auth Service
@@ -267,62 +40,239 @@ Levantar los siguientes proyectos Spring Boot:
 - Reserva Service
 - Servicio Service
 - Pago Service
-- Reporte Service
 - Horario Service
+- Reporte Service
 - Notificación Service
 - Sucursal Service
 
 ---
 
-## 5. Ejecutar el Frontend
+# Tecnologías utilizadas
 
-Entrar a:
+Backend
 
-```text
-barberflow-frontend
-```
+- Java 21
+- Spring Boot
+- Spring Data JPA
+- Hibernate
+- Maven
+- MySQL
+- Swagger OpenAPI
+- JUnit 5
+- Mockito
+
+Frontend
+
+- React
+- Vite
+- Axios
+
+Herramientas
+
+- Git
+- GitHub
+- Postman
+- XAMPP
+- Visual Studio Code
+
+---
+
+# Funcionalidades
+
+El sistema permite:
+
+- Registrar clientes.
+- Editar clientes.
+- Eliminar clientes.
+- Gestionar barberos.
+- Administrar servicios.
+- Registrar reservas.
+- Gestionar pagos.
+- Administrar sucursales.
+- Consultar información mediante API REST.
+- Documentar los endpoints utilizando Swagger.
+
+---
+
+# Arquitectura del proyecto
+
+Frontend React
+
+↓
+
+API Gateway
+
+↓
+
+Microservicios independientes
+
+- Cliente
+- Barbero
+- Reserva
+- Servicio
+- Pago
+- Horario
+- Reporte
+- Notificación
+- Sucursal
+- Auth
+
+↓
+
+MySQL
+
+---
+
+# API Gateway
+
+Las solicitudes son centralizadas mediante el API Gateway.
+
+Ejemplo de rutas:
+
+/clientes/**
+
+/barberos/**
+
+/reservas/**
+
+/servicios/**
+
+/pagos/**
+
+/horarios/**
+
+/reportes/**
+
+/sucursales/**
+
+/notificaciones/**
+
+---
+
+# Swagger
+
+Cada microservicio cuenta con documentación Swagger.
+
+Ejemplo:
+
+http://localhost:8081/swagger-ui/index.html
+
+http://localhost:8082/swagger-ui/index.html
+
+http://localhost:8083/swagger-ui/index.html
+
+http://localhost:8084/swagger-ui/index.html
+
+(Modificar los puertos según corresponda).
+
+---
+
+# Base de datos
+
+Motor:
+
+MySQL
+
+Base de datos:
+
+barberflow
+
+Persistencia mediante Spring Data JPA e Hibernate.
+
+---
+
+# Validaciones
+
+El sistema incorpora validaciones utilizando Bean Validation.
+
+Entre ellas:
+
+- @NotBlank
+- @Email
+- @Valid
+
+Además cuenta con manejo global de excepciones mediante ControllerAdvice.
+
+---
+
+# Registro de eventos
+
+Se implementó SLF4J para registrar eventos importantes del sistema como:
+
+- Creación de registros.
+- Actualización.
+- Eliminación.
+- Errores.
+- Advertencias.
+
+---
+
+# Pruebas unitarias
+
+Se implementaron pruebas unitarias utilizando:
+
+- JUnit 5
+- Mockito
+
+Las pruebas validan la lógica de negocio de los distintos microservicios utilizando mocks para simular el acceso a la base de datos.
+
+---
+
+# Ejecución del proyecto
+
+## Backend
+
+1. Iniciar MySQL desde XAMPP.
+2. Crear la base de datos barberflow.
+3. Ejecutar cada microservicio.
+4. Ejecutar el API Gateway.
+
+---
+
+## Frontend
+
+Entrar a la carpeta barberflow-frontend.
 
 Instalar dependencias:
 
-```bash
 npm install
-```
 
 Ejecutar:
 
-```bash
 npm run dev
-```
-
-Abrir en el navegador:
-
-```text
-http://localhost:5173
-```
 
 ---
 
-# Características del proyecto
+# Estructura del proyecto
 
-- Arquitectura basada en Microservicios.
-- API Gateway para centralizar el acceso.
-- Frontend desarrollado con React.
-- Backend desarrollado con Spring Boot.
-- Persistencia mediante MySQL.
-- Documentación con Swagger.
-- Validaciones utilizando Bean Validation.
-- Manejo centralizado de excepciones.
-- Registro de eventos mediante SLF4J.
-- Pruebas unitarias con JUnit y Mockito.
+BARBERFLOW
+
+--> api-gateway
+
+--> auth-service
+
+--> cliente-service
+
+--> barbero-service
+
+--> reserva-service
+
+--> servicio-service
+
+--> pago-service
+
+--> horario-service
+
+--> reporte-service
+
+--> notificacion-service
+
+--> sucursal-service
+
+--> barberflow-frontend
 
 ---
 
-# Autor
+# Estado del proyecto
 
-Proyecto desarrollado por Mackener Castro, Estudiante de Ingeniería en Informática de **Duoc UC** para la asignatura **Fullstack I**.
-
----
-
-=======
-# BarberFlow
->>>>>>> 882b98d0624dc45ba62dce70b497ecbc81104eb1
+Proyecto académico desarrollado para FullStack I Hecho por Mackener Castro, utilizando una arquitectura basada en microservicios.
